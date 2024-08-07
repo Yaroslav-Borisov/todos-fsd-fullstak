@@ -10,4 +10,7 @@ export const sessionRepository = {
     saveSession: (session: Session | null) => {
         return persistentStorage.saveItem(SESSION_STORAGE_KEY, session)
     },
+    removeSession: () => {
+        return persistentStorage.saveItem(SESSION_STORAGE_KEY, null)
+    },
 }

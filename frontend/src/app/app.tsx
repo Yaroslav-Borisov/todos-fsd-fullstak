@@ -1,13 +1,17 @@
+import { sessionRepository, useSessionStore } from '@/entities/session';
 import { SignIn } from '@/pages/sign-in';
 import { SignUp } from '@/pages/sign-up';
 import { Tasks } from '@/pages/tasks';
 import { ROUTER_PATHS } from '@/shared/constants';
-import { BrowserRouter, RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
+import { apiClient } from '@/shared/lib/api-client';
+import { RootLayout } from '@/widgets/root-layout/ui/root-layout';
+import { useEffect } from 'react';
+import { RouterProvider, createBrowserRouter, redirect, useSearchParams } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
     path: ROUTER_PATHS.HOME,
-    // element: <RootLayout />,
+    element: <RootLayout />,
     children: [
       {
         path: '',
@@ -35,5 +39,21 @@ const router = createBrowserRouter([
 ]);
 
 export const App = () => {
+  const session = sessionRepository.getSession();
+  console.log(session);
+
+  const verifySession = async () => {
+    apiClient.setToken(session!.token);
+    try {
+      await apiClient.post(`/verify`);
+    } catch (error) {
+      console.log('ошибка');
+    }
+  };
+
+  if (session) {
+    verifySession();
+  }
+
   return <RouterProvider router={router} />;
 };
