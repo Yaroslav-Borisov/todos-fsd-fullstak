@@ -18,14 +18,17 @@ export const SignIn = () => {
           onSubmit={(e) => {
             e.preventDefault();
             signIn(formData);
+            setFormData({ username: '', password: '' });
           }}
         >
           <TextInput
             placeholder={'username'}
+            value={formData.username}
             onChange={(e) => setFormData((prev) => ({ ...prev, username: e.target.value }))}
           />
           <TextInput
             placeholder={'password'}
+            value={formData.password}
             onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
           />
           <button className="button button--filled">Sign In</button>
