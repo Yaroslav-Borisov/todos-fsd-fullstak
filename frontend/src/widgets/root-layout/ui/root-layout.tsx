@@ -1,6 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Profile } from './profile';
-import { sessionRepository, useSessionStore } from '@/entities/session';
 import { ROUTER_PATHS } from '@/shared/constants';
 import { useCheckSession } from '@/entities/session/model/use-check-session';
 
